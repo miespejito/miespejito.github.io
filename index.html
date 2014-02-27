@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- TODO(mgaro): Add favicon
+    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+    -->
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+<!-- Place this tag where you want the share button to render. -->
+<div class="g-plus" data-action="share" data-height="24"></div>
+
+<!-- Place this tag after the last share tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'es'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/platform.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+
+<a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fparse.com" target="_blank">
+ Share on Facebook
+</a>
+
+
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+        </ul>
+        <h3 class="text-muted">Mi Espejito</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>¿Quién era la más bella de todas?</h1>
+        <p class="lead">La alternativa perfecta a tu espejo</p>
+        <p><a class="btn btn-lg btn-success" id="freeze" href="#" role="button">Congelar</a>
+           <a class="btn btn-lg btn-success" id="shot" href="#" role="button">Guardar</a>
+           <a class="btn btn-lg btn-success" id="shotplus" href="#" role="button">Photobooth!</a>
+         </p>
+
+      </div>
+
+
+<video id="video" width="640" height="480" autoplay></video>
+<canvas id="canvas" width="640" height="480" style=display:none></canvas>
+
+<script>
+// Put event listeners into place
+window.addEventListener("DOMContentLoaded", function() {
+// Grab elements, create settings, etc.
+var canvas = document.getElementById("canvas");
+var video = document.getElementById("video");
+var videoConstraint = { "video": true };
+var errBack = function(error) {
+// TODO: Replace video by error.
+console.log("Video error: ", error.name);
+};
+
+// Put video listeners into place
+if(navigator.getUserMedia) { // Standard
+navigator.getUserMedia(videoConstraint, function(stream) {
+video.src = stream;
+video.play();
+}, errBack);
+} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
+navigator.webkitGetUserMedia(videoConstraint, function(stream){
+video.src = window.webkitURL.createObjectURL(stream);
+video.play();
+}, errBack);
+} else if(navigator.mozGetUserMedia) { // Firefox-prefixed
+navigator.mozGetUserMedia(videoConstraint, function(stream){
+video.src = window.URL.createObjectURL(stream);
+video.play();
+}, errBack);
+}
+}, false);
+
+document.getElementById("freeze").addEventListener("click", function() {
+canvas.style.display = "none";
+video.style.display = "";
+if (video.paused) {
+video.play()
+} else {
+video.pause()
+}
+});
+
+document.getElementById("shot").addEventListener("click", function() {
+canvas.style.display = "";
+video.style.display = "none";
+canvas.height = 480;
+canvas.getContext("2d").drawImage(video, 0, 0, 640, 480);
+});
+
+document.getElementById("shotplus").addEventListener("click", function() {
+var delay = 1000;
+canvas.height = 1 ;
+canvas.style.display = "";
+video.style.display = "none";
+video.play()
+
+
+function shot(i) {
+if (i <= 0) {
+return;
+}
+var tmp = document.createElement('canvas');
+tmp.width = canvas.width;
+tmp.height = canvas.height;
+tmp.getContext("2d").drawImage(canvas, 0, 0);
+canvas.height += 480;
+canvas.getContext("2d").drawImage(video, 0, 0, 640, 480);
+canvas.getContext("2d").drawImage(tmp, 0, 480, 640, tmp.height);
+setTimeout(function() { shot(i-1) }, delay);
+}
+
+setTimeout(function() { shot(4) }, delay);
+});
+
+</script>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4></h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+          <h4>Subheading</h4>
+          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+          <h4>Subheading</h4>
+          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>&copy; Company 2014</p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
+  </body>
+
+  </body>
+</html>
+
+
