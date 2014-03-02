@@ -65,3 +65,5 @@ for (var i=0, len=elements.length; i<len; ++i) {
 		refreshSize();
 		});
 }
+
+refreshSize();
