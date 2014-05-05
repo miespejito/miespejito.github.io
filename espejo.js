@@ -58,6 +58,20 @@ function refreshSize() {
   video.width=w;
 };
 
+function goMessage() {
+  // Call this function again every T milli seconds;
+  var T = 10 * 1000;
+  //setTimeout("goMessage()", T);
+  // Randomly select text
+  var messages = [
+    "Tú, mi reina, eres la más bella de todas.",
+    "Tú, mi reina, eres la más bella de todas."];
+  var index = Math.floor(Math.random() * messages.length);
+  var message = messages[index];
+  // Change text
+  document.getElementById("mensaje").innerHTML = message;
+};
+
 var elements = document.getElementsByName("optionSize");
 for (var i=0, len=elements.length; i<len; ++i) {
   e = elements[i];
@@ -67,3 +81,5 @@ for (var i=0, len=elements.length; i<len; ++i) {
 }
 
 refreshSize();
+
+goMessage();
